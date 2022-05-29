@@ -5,9 +5,16 @@ import (
 	"time"
 )
 
+type IDeck interface {
+	Shuffle()
+	Draw() ICard
+	SetCards(cards []ICard)
+	GetCards() []ICard
+}
+
 type Deck struct {
-	Cards []Card
-	Next  int
+	IDeck
+	Cards []ICard
 }
 
 func (d *Deck) Shuffle() {
@@ -15,8 +22,16 @@ func (d *Deck) Shuffle() {
 	rand.Shuffle(len(d.Cards), func(i, j int) { d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i] })
 }
 
-func (d *Deck) Draw() Card {
-	card := d.Cards[d.Next]
-	d.Next += 1
-	return card
+func (d *Deck) Draw() ICard {
+	nextCard := d.Cards[0]
+	d.Cards = d.Cards[1:]
+	return nextCard
+}
+
+func (d *Deck) GetCards() []ICard {
+	return d.Cards
+}
+
+func (d *Deck) SetCards(cards []ICard) {
+	d.Cards = cards
 }

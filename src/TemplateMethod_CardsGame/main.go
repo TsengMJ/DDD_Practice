@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	// Create Players
 	player_0 := &player.AIPlayer{}
 	player_1 := &player.AIPlayer{}
 	player_2 := &player.AIPlayer{}
@@ -13,7 +14,11 @@ func main() {
 
 	players := []player.IPlayer{player_0, player_1, player_2, player_3}
 
+	// Poker Game
 	pokerGame := &game.PokerGame{}
+	pokerGame.PlayingGame(players)
 
-	pokerGame.Playing(players)
+	// Uno Game
+	unoGame := &game.UnoGame{}
+	unoGame.PlayingGame(players)
 }

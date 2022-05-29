@@ -9,27 +9,30 @@ import (
 )
 
 type IPlayer interface {
-	Rename()
-	DrawCard(deck *deck.Deck)
-	SetOrder(order int)
-	ShowCard() deck.Card
+	DrawCards(deck deck.IDeck)
+	ShowCard() deck.ICard
+	SetName()
 	AddPoint()
-	RemoveCard(index int)
-	NumberOfHands() int
 	GetPoint() int
+	removeCard(index int)
 }
 
 type Player struct {
-	IPlayer
 	Name  string
+	Cards []deck.ICard
 	Point int
-	Order int
-	Hands []deck.Card
 }
 
-func (p *Player) Rename() {
-	fmt.Printf("=================== Player %d ===================\n", p.Order)
-	fmt.Printf("Please enter your name: ")
+func (p *Player) DrawCards(d deck.IDeck) {
+	p.Cards = append(p.Cards, d.Draw())
+}
+
+func (p *Player) ShowCard() deck.ICard {
+	return p.Cards[0]
+}
+
+func (p *Player) SetName() {
+	fmt.Printf("Please enter player name: ")
 
 	reader := bufio.NewReader(os.Stdin)
 	input, err := reader.ReadString('\n')
@@ -43,26 +46,14 @@ func (p *Player) Rename() {
 	p.Name = name
 }
 
-func (p *Player) SetOrder(order int) {
-	p.Order = order
-}
-
-func (p *Player) DrawCard(deck *deck.Deck) {
-	p.Hands = append(p.Hands, deck.Draw())
-}
-
 func (p *Player) AddPoint() {
 	p.Point += 1
 }
 
-func (p *Player) RemoveCard(index int) {
-	p.Hands = append(p.Hands[:index], p.Hands[index+1:]...)
-}
-
-func (p *Player) NumberOfHands() int {
-	return len(p.Hands)
-}
-
 func (p *Player) GetPoint() int {
 	return p.Point
+}
+
+func (p *Player) removeCard(index int) {
+	p.Cards = append(p.Cards[:index], p.Cards[index+1:]...)
 }

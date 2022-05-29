@@ -1,52 +1,32 @@
 package deck
 
-type UNOCard struct {
+type UnoCard struct {
 	Card
 }
 
-type UNOType int
+var UnoType = map[string]int{
+	"Blue":   0,
+	"Red":    1,
+	"Yellow": 2,
+	"Green":  3,
+}
 
-const (
-	Blue UNOType = iota
-	Red
-	Yellow
-	Green
-)
+var UnoValue = map[string]int{
+	"1": 1,
+	"2": 2,
+	"3": 3,
+	"4": 4,
+	"5": 5,
+	"6": 6,
+	"7": 7,
+	"8": 8,
+	"9": 9,
+}
 
-type UNOValue int
-
-const (
-	One UNOValue = iota
-	Two
-	Three
-	Four
-	Five
-	Six
-	Seven
-	Eight
-	Nine
-)
-
-func (c *UNOCard) Compare(card UNOCard) int {
-	if c.Type > card.Type || (c.Type == card.Type && c.Value > card.Value) {
+func (c *UnoCard) Compare(card ICard) int {
+	if UnoType[c.GetType()] == UnoType[card.GetType()] || UnoValue[c.GetValue()] == UnoValue[card.GetValue()] {
 		return 1
 	} else {
 		return -1
 	}
-}
-
-func (c *UNOCard) GetAllType() []string {
-	return getAllUNOTypes()
-}
-
-func (c *UNOCard) GetAllValues() []string {
-	return getAllUNOValues()
-}
-
-func getAllUNOTypes() []string {
-	return []string{"Blue", "Red", "Yellow", "Green"}
-}
-
-func getAllUNOValues() []string {
-	return []string{"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
 }

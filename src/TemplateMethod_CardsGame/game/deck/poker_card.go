@@ -27,8 +27,10 @@ var PokerValue = map[string]int{
 	"A":  12,
 }
 
-func (c *PokerCard) Compare(card PokerCard) int {
-	if PokerType[c.Type] > PokerType[card.Type] || (PokerType[c.Type] == PokerType[card.Type] && PokerValue[c.Value] > PokerValue[card.Value]) {
+func (c *PokerCard) Compare(card ICard) int {
+	if PokerType[c.GetType()] > PokerType[card.GetType()] ||
+		(PokerType[c.GetType()] == PokerType[card.GetType()] &&
+			PokerValue[c.GetValue()] > PokerValue[card.GetValue()]) {
 		return 1
 	} else {
 		return -1
