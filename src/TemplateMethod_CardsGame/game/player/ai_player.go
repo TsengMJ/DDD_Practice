@@ -11,7 +11,6 @@ type AIPlayer struct {
 }
 
 func (p *AIPlayer) ShowCard() deck.ICard {
-	fmt.Println(p.GetNumberOfCards())
 	cardIndex := rand.Intn(p.GetNumberOfCards())
 	showCard := p.Cards[cardIndex]
 	p.removeCard(cardIndex)
