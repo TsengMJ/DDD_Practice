@@ -35,6 +35,11 @@ func (g *Game) initDeck() {
 
 func (g *Game) initPlayers(players []player.IPlayer) {
 	g.Players = players
+	for i := 0; i < len(g.Players); i++ {
+		fmt.Printf("-- Player %d --\n", i)
+		g.Players[i].ReName()
+		fmt.Printf("Hello %s\n\n", g.Players[i].GetName())
+	}
 }
 
 func (g *Game) startGame() {

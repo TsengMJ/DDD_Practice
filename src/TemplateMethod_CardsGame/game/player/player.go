@@ -11,9 +11,12 @@ import (
 type IPlayer interface {
 	DrawCards(deck deck.IDeck)
 	ShowCard() deck.ICard
-	SetName()
+	ReName()
 	AddPoint()
+	AddCard(card deck.ICard)
 	GetPoint() int
+	GetName() string
+	GetNumberOfCards() int
 	removeCard(index int)
 }
 
@@ -31,7 +34,7 @@ func (p *Player) ShowCard() deck.ICard {
 	return p.Cards[0]
 }
 
-func (p *Player) SetName() {
+func (p *Player) ReName() {
 	fmt.Printf("Please enter player name: ")
 
 	reader := bufio.NewReader(os.Stdin)
@@ -50,8 +53,20 @@ func (p *Player) AddPoint() {
 	p.Point += 1
 }
 
+func (p *Player) AddCard(card deck.ICard) {
+	p.Cards = append(p.Cards, card)
+}
+
 func (p *Player) GetPoint() int {
 	return p.Point
+}
+
+func (p *Player) GetName() string {
+	return p.Name
+}
+
+func (p *Player) GetNumberOfCards() int {
+	return len(p.Cards)
 }
 
 func (p *Player) removeCard(index int) {
